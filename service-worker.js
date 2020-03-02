@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/BurgerApp/precache-manifest.ed44d87b23090b8f39e497b98ee6d383.js"
+  "/BurgerApp/precache-manifest.1d4a8a438532dc352b4b7bb35b690e47.js"
 );
 
 self.addEventListener('message', (event) => {
