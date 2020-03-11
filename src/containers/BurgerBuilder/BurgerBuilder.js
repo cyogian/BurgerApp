@@ -6,12 +6,13 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import { withRouter } from "react-router-dom";
 
 const INGREDIENT_PRICES = {
-  salad: 0.5,
+  bacon: 0.7,
   cheese: 0.4,
   meat: 1.3,
-  bacon: 0.7
+  salad: 0.5
 };
 
 class BurgerBuilder extends Component {
@@ -56,39 +57,40 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    this.setState({
-      loading: true
-    });
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.price,
-      customer: {
-        name: "Amar Nath Yogi",
-        address: {
-          street: "C-4, Birlagram, Nagda",
-          zipCode: "456331",
-          country: "India"
-        },
-        email: "someone@something.com"
-      },
-      deliveryMethod: "fastest"
-    };
-    axios
-      .post("/orders.json", order)
-      .then(response => {
-        console.log(response);
-        this.setState({
-          loading: false,
-          purchasing: false
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({
-          loading: false,
-          purchasing: false
-        });
-      });
+    this.props.history.push("/checkout");
+    // this.setState({
+    //   loading: true
+    // });
+    // const order = {
+    //   ingredients: this.state.ingredients,
+    //   price: this.state.price,
+    //   customer: {
+    //     name: "Amar Nath Yogi",
+    //     address: {
+    //       street: "C-4, Birlagram, Nagda",
+    //       zipCode: "456331",
+    //       country: "India"
+    //     },
+    //     email: "someone@something.com"
+    //   },
+    //   deliveryMethod: "fastest"
+    // };
+    // axios
+    //   .post("/orders.json", order)
+    //   .then(response => {
+    //     console.log(response);
+    //     this.setState({
+    //       loading: false,
+    //       purchasing: false
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //     this.setState({
+    //       loading: false,
+    //       purchasing: false
+    //     });
+    //   });
   };
 
   updatePurchaseState = ingredients => {
