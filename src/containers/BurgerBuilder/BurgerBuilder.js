@@ -6,7 +6,6 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import { withRouter } from "react-router-dom";
 
 const INGREDIENT_PRICES = {
   bacon: 0.7,
@@ -57,40 +56,24 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    this.props.history.push("/checkout");
-    // this.setState({
-    //   loading: true
-    // });
-    // const order = {
-    //   ingredients: this.state.ingredients,
-    //   price: this.state.price,
-    //   customer: {
-    //     name: "Amar Nath Yogi",
-    //     address: {
-    //       street: "C-4, Birlagram, Nagda",
-    //       zipCode: "456331",
-    //       country: "India"
-    //     },
-    //     email: "someone@something.com"
-    //   },
-    //   deliveryMethod: "fastest"
-    // };
-    // axios
-    //   .post("/orders.json", order)
-    //   .then(response => {
-    //     console.log(response);
-    //     this.setState({
-    //       loading: false,
-    //       purchasing: false
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     this.setState({
-    //       loading: false,
-    //       purchasing: false
-    //     });
-    //   });
+    const queryParams = [];
+    for (let i in this.state.ingredients) {
+      queryParams.push(
+        `${encodeURIComponent(i)}=${encodeURIComponent(
+          this.state.ingredients[i]
+        )}`
+      );
+    }
+    queryParams.push(
+      `${encodeURIComponent("price")}=${encodeURIComponent(
+        this.state.totalPrice
+      )}`
+    );
+    const queryString = queryParams.join("&");
+    this.props.history.push({
+      pathname: "/checkout",
+      search: "?" + queryString
+    });
   };
 
   updatePurchaseState = ingredients => {

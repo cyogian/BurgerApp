@@ -15,11 +15,14 @@ const CheckoutSummary = props => {
         }}
       >
         <Burger ingredients={props.ingredients} />
+        <p>
+          <strong>Total Price: ${props.price.toFixed(2)}</strong>
+        </p>
       </div>
-      <Button btnType="Danger" clicked>
+      <Button btnType="Danger" clicked={props.checkoutCancelled}>
         Cancel
       </Button>
-      <Button btnType="Success" clicked>
+      <Button btnType="Success" clicked={props.checkoutContinued}>
         Continue
       </Button>
     </div>
