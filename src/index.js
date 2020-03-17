@@ -1,15 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import { devToolsEnhancer } from "redux-devtools-extension";
 
+import reducer from "./store/reducers/reducer";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+const store = createStore(
+  reducer,
+  /* preloadedState, */ devToolsEnhancer()
+  // Specify name here, actionsBlacklist, actionsCreators and other options if needed
+);
+
 const app = (
-  <BrowserRouter basename="/BurgerApp">
-    <App />
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter basename="/BurgerApp">
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
 ReactDOM.render(app, document.getElementById("root"));
 
