@@ -1,5 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
 
+const BASE_PRICE = 4;
 const INGREDIENT_PRICES = {
   bacon: 0.7,
   cheese: 0.4,
@@ -8,13 +9,18 @@ const INGREDIENT_PRICES = {
 };
 
 const initialState = {
-  ingredients: {
-    bacon: 0,
-    cheese: 0,
-    meat: 0,
-    salad: 0
-  },
-  totalPrice: 4
+  ingredients: null,
+  totalPrice: 4,
+  error: false
+};
+
+const calcTotal = ingredients => {
+  let totalPrice = Object.keys(ingredients).reduce(
+    (totalPrice, igKey) =>
+      totalPrice + INGREDIENT_PRICES[igKey] * ingredients[igKey],
+    BASE_PRICE
+  );
+  return totalPrice;
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -35,6 +41,22 @@ const reducer = (state = initialState, action) => {
           [action.ingredientName]: state.ingredients[action.ingredientName] - 1
         },
         totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+      };
+
+    case actionTypes.SET_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: {
+          ...action.ingredients
+        },
+        totalPrice: calcTotal(action.ingredients),
+        error: false
+      };
+
+    case actionTypes.FETCH_INGREDIENTS_FAILED:
+      return {
+        ...state,
+        error: true
       };
     default:
       return state;

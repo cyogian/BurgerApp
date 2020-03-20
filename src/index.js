@@ -1,19 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import { createStore } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import { Provider } from "react-redux";
-import { devToolsEnhancer } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 import burgerBuilderReducer from "./store/reducers/burgerBuilderReducer";
+import orderReducer from "./store/reducers/orderReducer";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-const store = createStore(
-  burgerBuilderReducer,
-  /* preloadedState, */ devToolsEnhancer()
+const composeEnhancers = composeWithDevTools({
   // Specify name here, actionsBlacklist, actionsCreators and other options if needed
+});
+
+const rootReducer = combineReducers({
+  builder: burgerBuilderReducer,
+  order: orderReducer
+});
+
+const store = createStore(
+  rootReducer,
+  /* preloadedState, */ composeEnhancers(
+    applyMiddleware(thunk)
+    // other store enhancers if any
+  )
 );
 
 const app = (
