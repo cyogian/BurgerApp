@@ -5,13 +5,13 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
 
-import reducer from "./store/reducers/reducer";
+import burgerBuilderReducer from "./store/reducers/burgerBuilderReducer";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 const store = createStore(
-  reducer,
+  burgerBuilderReducer,
   /* preloadedState, */ devToolsEnhancer()
   // Specify name here, actionsBlacklist, actionsCreators and other options if needed
 );
