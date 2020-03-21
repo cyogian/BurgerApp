@@ -1,13 +1,19 @@
+// React imports
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+
+// redux Imports
 import { createStore, applyMiddleware, combineReducers } from "redux";
-import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 
+// Reducer imports
 import burgerBuilderReducer from "./store/reducers/burgerBuilderReducer";
 import orderReducer from "./store/reducers/orderReducer";
+import myOrdersReducer from "./store/reducers/myOrdersReducer";
+
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
@@ -18,7 +24,8 @@ const composeEnhancers = composeWithDevTools({
 
 const rootReducer = combineReducers({
   builder: burgerBuilderReducer,
-  order: orderReducer
+  order: orderReducer,
+  myOrders: myOrdersReducer
 });
 
 const store = createStore(

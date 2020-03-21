@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import * as burgerBuilderActions from "../../store/actions/burgerBuilderActions";
-import * as orderActions from "../../store/actions/order";
+import * as orderActions from "../../store/actions/orderActions";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
