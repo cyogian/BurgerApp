@@ -53,6 +53,13 @@ class Auth extends Component {
       isValid = value.trim().length <= rules.maxLength && isValid;
     }
 
+    if (rules.isEmail) {
+      let isEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+        value.trim()
+      );
+      isValid = isEmail && isValid;
+    }
+
     return isValid;
   };
 
