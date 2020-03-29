@@ -13,6 +13,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import burgerBuilderReducer from "./store/reducers/burgerBuilderReducer";
 import orderReducer from "./store/reducers/orderReducer";
 import myOrdersReducer from "./store/reducers/myOrdersReducer";
+import authReducer from "./store/reducers/authReducer";
 
 import "./index.css";
 import App from "./App";
@@ -25,7 +26,8 @@ const composeEnhancers = composeWithDevTools({
 const rootReducer = combineReducers({
   builder: burgerBuilderReducer,
   order: orderReducer,
-  myOrders: myOrdersReducer
+  myOrders: myOrdersReducer,
+  auth: authReducer
 });
 
 const store = createStore(
