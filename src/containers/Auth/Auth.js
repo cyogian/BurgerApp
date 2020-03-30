@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Input from "../../components/UI/Input/Input";
@@ -137,6 +138,7 @@ class Auth extends Component {
     }
     return (
       <div className={classes.Auth}>
+        {this.props.isAuthenticated ? <Redirect to="/" /> : null}
         <h2>{this.state.isSignUp ? "SIGN UP" : "SIGN IN"}</h2>
         {errorMessage}
         {this.props.loading ? (
@@ -158,7 +160,8 @@ class Auth extends Component {
 const mapStateToProps = state => {
   return {
     loading: state.auth.loading,
-    error: state.auth.error
+    error: state.auth.error,
+    isAuthenticated: state.auth.token !== null
   };
 };
 
