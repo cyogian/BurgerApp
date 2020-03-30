@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import * as burgerBuilderActions from "../../store/actions/burgerBuilderActions";
 import * as orderActions from "../../store/actions/orderActions";
+import * as authActions from "../../store/actions/authActions";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
@@ -26,6 +27,7 @@ class BurgerBuilder extends Component {
         purchasing: true
       });
     } else {
+      this.props.onSetAuthRedirectPath("/checkout");
       this.props.history.push("/auth");
     }
   };
@@ -116,7 +118,9 @@ const mapDispatchToProps = dispatch => {
     onIngredientRemoved: ingredientName =>
       dispatch(burgerBuilderActions.removeIngredient(ingredientName)),
     onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients()),
-    onInitPurchase: () => dispatch(orderActions.purchaseInit())
+    onInitPurchase: () => dispatch(orderActions.purchaseInit()),
+    onSetAuthRedirectPath: path =>
+      dispatch(authActions.setAuthRedirectPath(path))
   };
 };
 export default connect(
