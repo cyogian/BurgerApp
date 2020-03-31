@@ -23,9 +23,10 @@ const composeEnhancers = composeWithDevTools({
   // Specify name here, actionsBlacklist, actionsCreators and other options if needed
 });
 
-const middleware = process.env.NODE_ENV
-  ? composeEnhancers(applyMiddleware(thunk))
-  : applyMiddleware(thunk);
+let middleware = composeEnhancers(applyMiddleware(thunk));
+if (process.env.NODE_ENV !== "development") {
+  middleware = applyMiddleware(thunk);
+}
 
 const rootReducer = combineReducers({
   builder: burgerBuilderReducer,
