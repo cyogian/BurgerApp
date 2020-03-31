@@ -24,7 +24,7 @@ const composeEnhancers = composeWithDevTools({
 });
 
 let middleware = composeEnhancers(applyMiddleware(thunk));
-if (process.env.NODE_ENV !== "development") {
+if (process.env.NODE_ENV === "production") {
   middleware = applyMiddleware(thunk);
 }
 
