@@ -13,6 +13,7 @@ const SideDrawer = props => {
           classes.SideDrawer,
           props.show ? classes.Open : classes.Close
         ].join(" ")}
+        onClick={props.closed}
       >
         <div className={classes.Logo}>
           <Logo />
