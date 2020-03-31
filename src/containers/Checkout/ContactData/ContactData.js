@@ -7,7 +7,7 @@ import Input from "../../../components/UI/Input/Input";
 import * as orderActions from "../../../store/actions/orderActions";
 import axios from "../../../axios-orders";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
-import { updateObject } from "../../../shared/utility";
+import { updateObject, checkValidity } from "../../../shared/utility";
 
 import classes from "./ContactData.module.css";
 
@@ -35,7 +35,8 @@ class ContactData extends Component {
         },
         value: "",
         validation: {
-          required: true
+          required: true,
+          isEmail: true
         },
         valid: false,
         touched: false
@@ -98,29 +99,11 @@ class ContactData extends Component {
     formIsValid: false
   };
 
-  checkValidity = (value, rules) => {
-    let isValid = true;
-
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.trim().length >= rules.minLength && isValid;
-    }
-
-    if (rules.maxLength) {
-      isValid = value.trim().length <= rules.maxLength && isValid;
-    }
-
-    return isValid;
-  };
-
   inputChangedHandler = (event, inputId) => {
     const updatedFormElement = updateObject(this.state.orderForm[inputId], {
       value: event.target.value,
       touched: true,
-      valid: this.checkValidity(
+      valid: checkValidity(
         event.target.value,
         this.state.orderForm[inputId].validation
       )
